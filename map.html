@@ -56,6 +56,8 @@
                     zoom: 13,
                     zoomControl: true,
                     preferCanvas: false,
+                    attributionControl: false // ← disables attribution, but it is a #TODO to enable it when in full window.
+
                 }
             );
 
@@ -65,7 +67,7 @@
     
             var tile_layer_78d414a92b89391edebef2ea23fb1866 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+                {"attribution": "OpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             );
         
     
