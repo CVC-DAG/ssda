@@ -383,6 +383,29 @@
             margin: 0 auto 1rem;
         }
 
+        /* Small avatars used for the Communications team (three small circles) */
+        .avatar-group {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0 auto 1rem;
+        }
+        .avatar-sm {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            flex: 0 0 auto;
+            background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+            display: inline-block;
+        }
+        .avatar-sm img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .sponsor-card {
             background: white;
             border-radius: 0.5rem;
@@ -513,6 +536,17 @@
       }
     }
 
+    /* New: standardized sponsor logo sizing */
+        .sponsor-logo {
+            display: block;
+            margin: 0 auto 0.75rem;
+            max-width: 400px;    /* limits width on large screens */
+            max-height: 84px;    /* keeps logos visually similar height */
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
     </style>
 </head>
 <body>
@@ -550,7 +584,7 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>6th IAPR TC10/TC11 Summer School</h1>
-            <h2>Next-Gen Document Understanding: RAG, VLLMs, and Structured Knowledge Extraction</h2>
+            <h2>Next-Gen Document Understanding: RAG, VLMs, and Structured Knowledge Extraction</h2>
             <div class="hero-info">
                 <div class="hero-info-item">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
@@ -590,8 +624,8 @@
                     <p style="color: #374151; margin-bottom: 1rem;">
                         The rapid development of Document Intelligence (DI) has transformed traditional Document Analysis 
                         and Recognition (DAR) into a sophisticated, AI-driven field. This summer school provides cutting-edge 
-                        tools for information extraction using Retrieval-Augmented Generation (RAG), Vision-Language Large 
-                        Models (VLLMs), and structured knowledge representation.
+                        tools for information extraction using Retrieval-Augmented Generation (RAG), Vision-Language 
+                        Models (VLMs), and structured knowledge representation.
                     </p>
                     <p style="color: #374151;">
                         Through a Challenge-Based Learning framework, participants will progress from foundational lectures 
@@ -610,7 +644,7 @@
                         <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
                             <path d="M19 9l-7 7-7-7"/>
                         </svg>
-                        <span style="color: #374151;">Master multimodal data generation for efficient VLLM training</span>
+                        <span style="color: #374151;">Master multimodal data generation for efficient VLM training</span>
                     </div>
                     <div class="list-icon">
                         <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
@@ -645,46 +679,42 @@
                 </h3>
                 
                 <div class="card" style="margin-bottom: 2rem;">
-                    <h4>Generating Answers from Document Collections</h4>
+                    <h4>Vision-Language Models</h4>
                     <div class="topic">
-                        <h5>DocVQA: Natural Language Answers to Natural Questions</h5>
-                        <p>Recent advancements in interacting with documents through natural language</p>
+                        <h5>Designing and training VLMs</h5>
+                        <p>Lessons learned from training large-scale vision-language models.</p>
                     </div>
                     <div class="topic">
-                        <h5>Retrieval-Augmented Generation (RAG)</h5>
-                        <p>Integrating information retrieval with generative capabilities for fact-based answers</p>
+                        <h5>Document Processing with VLMs</h5>
+                        <p>How to use VLMs to extract structured information from documents.</p>
                     </div>
                 </div>
 
                 <div class="card" style="margin-bottom: 2rem;">
-                    <h4>Data Solutions to Data Problems</h4>
+                    <h4>Graphs as a Document Representation</h4>
                     <div class="topic">
-                        <h5>Vision and Language in LLMs</h5>
-                        <p>State-of-the-art in vision-language models for document analysis</p>
+                        <h5>Learning on Graphs: GNNs in Document Analysis.</h5>
+                        <p>Use graph neural networks to analyze and interpret document structures.</p>
                     </div>
                     <div class="topic">
-                        <h5>Synthetic Documents</h5>
-                        <p>Generating synthetic samples for data augmentation and specialized training</p>
+                        <h5>Knowledge Graph Embeddings and Knowledge Representation</h5>
+                        <p>Convert documents into structured knowledge graphs for enhanced understanding.</p>
                     </div>
                     <div class="topic">
-                        <h5>Few-Shot Learning</h5>
-                        <p>Techniques to improve VLLMs performance when training data is scarce</p>
+                        <h5>GraphRAG</h5>
+                        <p>How to augment your models with graph retrieval-augmented generation techniques.</p>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h4>From Answers to Knowledge and Vice-Versa</h4>
+                    <h4>Trends on Document Analysis</h4>
                     <div class="topic">
-                        <h5>Heuristics and Graph Learning</h5>
-                        <p>Leveraging graph neural networks for document structure analysis</p>
+                        <h5>Trends on Truthworthy Document Analysis</h5>
+                        <p>Panel with experts working on trustworthiness and explainability in document analysis.</p>
                     </div>
                     <div class="topic">
-                        <h5>GraphRAG: Structured Knowledge</h5>
-                        <p>Enhancing RAG with graph structures for complex reasoning-driven queries</p>
-                    </div>
-                    <div class="topic">
-                        <h5>Knowledge Graph Embeddings</h5>
-                        <p>Learning and encoding distances within embedding spaces for graph construction</p>
+                        <h5>Trends on Historical Document Analysis</h5>
+                        <p>Panels with experts discussing the latest research and challenges in historical document analysis.</p>
                     </div>
                 </div>
             </div>
@@ -694,26 +724,43 @@
                 <h3>Hands-On Lab Sessions</h3>
                 <div class="grid-3">
                     <div class="bg-blue-light">
-                        <h4>DocVQA using RAGs</h4>
-                        <p class="text-sm" style="color: #374151;">Implement a basic RAG system in the context of a DocVQA task</p>
+                        <h4>Fine-Tuning Vision Language Models</h4>
+                        <p class="text-sm" style="color: #374151;">Fine-tune a small VLM on documents of a specific domain.</p>
                     </div>
                     <div class="bg-blue-light">
-                        <h4>Document Data Generation</h4>
-                        <p class="text-sm" style="color: #374151;">Generate additional documents to enrich the training of large models</p>
+                        <h4>Graph Neural Networks</h4>
+                        <p class="text-sm" style="color: #374151;">Explore the use of graph neural networks for document structure analysis.</p>
                     </div>
                     <div class="bg-blue-light">
-                        <h4>Graph Construction using RAG</h4>
-                        <p class="text-sm" style="color: #374151;">Perform information extraction to build a knowledge graph from a database</p>
+                        <h4>Agentic GraphRAG</h4>
+                        <p class="text-sm" style="color: #374151;">Build an agentic system using GraphRAG for advanced document analysis.</p>
                     </div>
                 </div>
             </div>
 
+            <!-- Open Lab Challenge -->
+            <div class="bg-gradient-blue">
+                <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1rem;">Document Understanding 2026 Challenge</h3>
+                <p style="font-size: 1.125rem; margin-bottom: 1rem;">
+                    Teams of 5 participants will tackle real-world industry problems.
+                </p>
+                <!-- <ul style="margin-left: 1.5rem;">
+                    <li>Fine-tuning a Low Resource VLM with Synthetic Data Augmentation</li>
+                    <li>Building a Knowledge Graph from a finetuned VLM</li>
+                </ul> -->
+            </div>
+            <div style="height: 2rem;"></div>
+        
+        
+
             <!-- Schedule -->
 <div style="margin-bottom: 3rem;">
   
-  <h3>Weekly Schedule</h3>
+  <h3>Schedule</h3>
 
-<table class="schedule">
+  <div> TBD </div>
+
+<!-- <table class="schedule">
   <thead>
     <tr>
       <th>Monday 25th</th>
@@ -788,21 +835,7 @@
       <td></td>
     </tr>
   </tbody>
-</table>
-
-
-
-            <!-- Open Lab Challenge -->
-            <div class="bg-gradient-blue">
-                <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1rem;">Document Understanding 2026 Challenge</h3>
-                <p style="font-size: 1.125rem; margin-bottom: 1rem;">
-                    Teams of 5 participants will tackle real-world industry problems using a large, low-resource document collection:
-                </p>
-                <ul style="margin-left: 1.5rem;">
-                    <li>Finetuning a Low Resource VLLM with Synthetic Data Augmentation</li>
-                    <li>Building a Knowledge Graph from a finetuned VLLM</li>
-                </ul>
-            </div>
+</table> -->
         </div>
     </section>
 
@@ -970,7 +1003,6 @@
                     <ul style="color: #374151; margin-left: 1.5rem;">
                         <li>Guided hiking and nature walks with mountain views</li>
                         <li>Board games and social activities in communal spaces</li>
-                        <li>Crystal-clear lake walks and alpine meadows</li>
                         <li>Gala dinner on the final evening</li>
                         <li>Informal networking throughout the week</li>
                     </ul>
@@ -1047,7 +1079,7 @@
                 <div class="sponsor-card" style="max-width: 28rem; margin: 0 auto;">
                     <div class="sponsor-icon">★</div>
                     <p style="color: #6b7280;">Sponsorship opportunity available</p>
-                    <p class="text-sm mt-2" style="color: #9ca3af;">€5,000 • Industry challenge provider</p>
+                    <!-- <p class="text-sm mt-2" style="color: #9ca3af;">€5,000 • Industry challenge provider</p> -->
                 </div>
             </div>
 
@@ -1055,7 +1087,8 @@
                 <div style="text-align: center;">
                     <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Organizer</h3>
                     <div class="sponsor-card">
-                        <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">CVC</div>
+                        <img class="sponsor-logo" src="Logos/CVC-logo-scaled.png" alt="CVC Logo">
+                        <!-- <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">CVC</div> -->
                         <p class="text-sm" style="color: #6b7280;">Computer Vision Center</p>
                         <p class="text-xs mt-2" style="color: #9ca3af;">Universitat Autònoma de Barcelona</p>
                     </div>
@@ -1064,17 +1097,19 @@
                  <div style="text-align: center;">
                     <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Supporter</h3>
                     <div class="sponsor-card">
-                        <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">IAPR 10th and 11n Technical Committees</div>
-                        <p class="text-sm" style="color: #6b7280;">International Association for Pattern Recognition</p>
-                        <p class="text-xs mt-2" style="color: #9ca3af;">TC10/TC11</p>
+                        <img class="sponsor-logo" src="Logos/IAPR.png" alt="IAPR Logo">
+                        <!-- <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">IAPR 10th and 11th Technical Committees</div> -->
+                        <p class="text-sm" style="color: #6b7280;">IAPR 10th and 11th Technical Committees</p>
+                        <p class="text-xs mt-2" style="color: #9ca3af;">IAPR</p>
                     </div>
                 </div>
                 <div style="text-align: center;">
                     <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Co-Organizer</h3>
                     <div class="sponsor-card">
-                        <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">ELLIS Unit Barcelona</div>
-                        <p class="text-sm" style="color: #6b7280;">European Laboratory for Learning and Intelligent Systems</p>
-                        <p class="text-xs mt-2" style="color: #9ca3af;">Berclona Unit</p>
+                        <img class="sponsor-logo" src="Logos/ellis-logo_horizontal_black_2023-barcelona.png" alt="ELLIS Unit Barcelona Logo">
+                        <!-- <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">ELLIS Unit Barcelona</div> -->
+                        <p class="text-sm" style="color: #6b7280;">ELLIS Unit Barcelona</p>
+                        <p class="text-xs mt-2" style="color: #9ca3af;">Barcelona</p>
                     </div>
                 </div>
             </div>
@@ -1084,11 +1119,11 @@
                 <p style="color: #374151; margin-bottom: 1rem;">
                     Support the next generation of document understanding researchers and gain visibility in the academic community.
                 </p>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem;">
+                <!-- <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem;">
                     <span>Platinum: €5,000</span>
                     <span>•</span>
                     <span>Gold: €2,500</span>
-                </div>
+                </div> -->
                 <button class="btn-primary">Contact Us for Sponsorship</button>
             </div>
         </div>
@@ -1107,7 +1142,7 @@
                 </div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Prof. Dimosthenis Karatzas</h3>
                 <p class="text-sm" style="color: #6b7280;">Associate Director, CVC</p>
-                <p class="text-xs mt-1" style="color: #9ca3af;">ELLIS Fellow • IAPR TC11 Former Chair</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Head of Vision, Language and Reading Group</p>
             </div>
             
             <div style="text-align: center;">
@@ -1116,7 +1151,7 @@
                 </div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Prof. Josep Lladós</h3>
                 <p class="text-sm" style="color: #6b7280;">Director, CVC</p>
-                <p class="text-xs mt-1" style="color: #9ca3af;">Head of Pattern Recognition & Document Analysis Group</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Head of Document Analysis Group</p>
             </div>
             
             <div style="text-align: center;">
@@ -1133,7 +1168,7 @@
                     <img src="Team/adri.png" alt="Adri Molina" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
                 </div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Adri Molina</h3>
-                <p class="text-sm" style="color: #6b7280;">PhD Candidate, CVC</p>
+                <p class="text-sm" style="color: #6b7280;">PhD Student, CVC</p>
                 <p class="text-xs mt-1" style="color: #9ca3af;">Document Analysis • Retrieval Systems</p>
             </div>
             
@@ -1143,18 +1178,24 @@
                 </div>
                 <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Artemis Llabrés</h3>
                 <p class="text-sm" style="color: #6b7280;">PhD Student, CVC</p>
-                <p class="text-xs mt-1" style="color: #9ca3af;">Vision & Language • Best Student Paper Award 2024</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Vision & Language  • Document Understanding</p>
             </div>
             
             <div style="text-align: center;">
-                <div class="avatar" style="display:flex; justify-content:center; gap:10px;">
-                    <img src="Team/nuria.jpg" alt="Nuria Martinez" style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
-                    <img src="Team/aurora.jpeg" alt="Aurora Garcia" style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
-                    <img src="Team/xavi.jpeg" alt="Xavier Galvez" style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
+                <div class="avatar-group" aria-hidden="false">
+                    <div class="avatar-sm">
+                        <img src="Team/nuria.jpg" alt="Nuria Martinez">
+                    </div>
+                    <div class="avatar-sm">
+                        <img src="Team/aurora.jpeg" alt="Aurora Garcia">
+                    </div>
+                    <div class="avatar-sm">
+                        <img src="Team/xavi.jpeg" alt="Xavier Galvez">
+                    </div>
                 </div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">CVC Communications Team</h3>
-                <p class="text-sm" style="color: #6b7280;">Marketing & Events</p>
-                <p class="text-xs mt-1" style="color: #9ca3af;">Nuria Martinez • Aurora Garcia • Xavier Galvez</p>
+                 <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">CVC Communications Team</h3>
+                 <p class="text-sm" style="color: #6b7280;">Nuria Martinez • Aurora Garcia • Xavier Galvez</p>
+                 <!-- <p class="text-xs mt-1" style="color: #9ca3af;">Nuria Martinez • Aurora Garcia • Xavier Galvez</p> -->
             </div>
         </div>
     </div>
@@ -1200,7 +1241,7 @@
             </div>
 
             <div class="footer-divider">
-                © 2026 SSDA Summer School • Designed by CVC
+                2026 SSDA Summer School
             </div>
         </div>
     </footer>
