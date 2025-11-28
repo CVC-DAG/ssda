@@ -547,13 +547,33 @@
             object-fit: contain;
         }
 
+        .nav-logo {
+    height: 40px; /* Fixed height for navbar */
+    width: auto; /* Maintains aspect ratio */
+    max-width: 100%; /* Prevents overflow on small screens */
+}
+
+/* Adjust size for different screen sizes */
+@media (max-width: 640px) {
+    .nav-logo {
+        height: 32px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-logo {
+        height: 48px;
+    }
+}
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="nav-brand">SSDA 2026</div>
+<div class="nav-brand">
+    <img src="Logos/Logo_SSDA_2026 1.svg" alt="SSDA Logo" class="nav-logo">
+</div>
             <div class="nav-menu">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#about" class="nav-link">About</a>
