@@ -37,11 +37,7 @@
             height: 64px;
         }
 
-        .nav-brand {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #1e3a8a;
-        }
+
 
         .nav-menu {
             display: none;
@@ -547,10 +543,19 @@
             object-fit: contain;
         }
 
-        .nav-logo {
-    height: 40px; /* Fixed height for navbar */
-    width: auto; /* Maintains aspect ratio */
-    max-width: 100%; /* Prevents overflow on small screens */
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    display: flex;        /* Add this */
+    align-items: center;  /* Add this */
+}
+
+.nav-logo {
+    height: 40px;
+    width: auto;
+    max-width: 200px;
+    display: block;       /* Removes inline spacing */
 }
 
 /* Adjust size for different screen sizes */
