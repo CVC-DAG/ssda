@@ -107,7 +107,7 @@ SCHEDULE_METADATA = {
         {
             "day_name": "Tuesday",
             "date": "26th",
-            "start_time": "9:00",
+            "start_time": "9:30",
             "events": [
                 {"title": "Vision and Language", "duration_minutes": 90, "color": "tuesday", "link": "TBA"},
                 {"title": "Coffee", "duration_minutes": 30, "color": "coffee", "link": "TBA"},
@@ -124,7 +124,7 @@ SCHEDULE_METADATA = {
         {
             "day_name": "Wednesday",
             "date": "27th",
-            "start_time": "9:00",
+            "start_time": "9:30",
             "events": [
                 {"title": "Hiking", "duration_minutes": 240, "color": "wednesday", "link": "TBA", "font_weight": "bold"},
                 {"title": "Lunch", "duration_minutes": 60, "color": "lunch", "link": "TBA"},
@@ -139,7 +139,7 @@ SCHEDULE_METADATA = {
         {
             "day_name": "Thursday",
             "date": "28th",
-            "start_time": "9:00",
+            "start_time": "9:30",
             "events": [
                 {"title": "Knowledge Graph Embeddings and Knowledge Representation", "duration_minutes": 90, "color": "thursday", "link": "TBA"},
                 {"title": "Coffee", "duration_minutes": 30, "color": "coffee", "link": "TBA"},
@@ -155,7 +155,7 @@ SCHEDULE_METADATA = {
         {
             "day_name": "Friday",
             "date": "29th",
-            "start_time": "9:00",
+            "start_time": "9:30",
             "events": [
                 {"title": "Open Lab: Results Presentation", "duration_minutes": 90, "color": "presentation", "link": "TBA"},
                 {"title": "Closing Ceremony", "duration_minutes": 30, "color": "thursday", "link": "TBA"},
