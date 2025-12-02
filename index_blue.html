@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSDA 2026 - Summer School on Document Understanding</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+
+
+        .nav-menu {
+            display: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #2563eb;
+        }
+
+        .nav-toggle {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-mobile {
+            display: none;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 1rem;
+        }
+
+        .nav-mobile.active {
+            display: block;
+        }
+
+        .nav-mobile a {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-mobile a:hover {
+            color: #2563eb;
+            background: #f9fafb;
+        }
+
+        @media (min-width: 768px) {
+            .nav-menu {
+                display: flex;
+            }
+            .nav-toggle {
+                display: none;
+            }
+        }
+
+    /* Hero Section - UPDATED to use Vall de Núria photo */
+        .hero {
+            padding-top: 64px; /* leave space for fixed nav */
+            color: white;
+            text-align: center;
+            position: relative;
+            /* Use the Wikimedia Commons image as a background (cover & center to crop nicely) */
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Vall_de_nuria-ripolles-2009_%282%29.JPG/1200px-Vall_de_nuria-ripolles-2009_%282%29.JPG?20140317115011");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 56vh; /* flexible height that looks good on desktop and mobile */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* dark overlay so white text stays readable */
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(8, 30, 92, 0.45), rgba(15, 23, 42, 0.45));
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .hero-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+        }
+
+        .hero-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #1e3a8a;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #f3f4f6;
+        }
+
+        .hero-gradient {
+            height: 8rem;
+            background: linear-gradient(to top, white, transparent);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 1rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #111827;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero h1 {
+                font-size: 3.75rem;
+            }
+            .hero h2 {
+                font-size: 1.875rem;
+            }
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .card h5 {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .topic {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .bg-gray {
+            background: #f9fafb;
+        }
+
+        .bg-blue-light {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .bg-green-light {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .bg-gradient-blue {
+            background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .list-icon {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .schedule-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .schedule-card h4 {
+            font-weight: bold;
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .schedule-card ul {
+            list-style: none;
+        }
+
+        .schedule-card li {
+            font-size: 0.875rem;
+            color: #374151;
+            border-left: 2px solid #d1d5db;
+            padding-left: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-box {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-visual {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            height: 16rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar {
+            width: 8rem;
+            height: 8rem;
+            background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        /* Small avatars used for the Communications team (three small circles) */
+        .avatar-group {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0 auto 1rem;
+        }
+        .avatar-sm {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            flex: 0 0 auto;
+            background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+            display: inline-block;
+        }
+        .avatar-sm img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .sponsor-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .sponsor-icon {
+            font-size: 3rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            padding: 3rem 1rem;
+        }
+
+        footer h3, footer h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-divider {
+            border-top: 1px solid #374151;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        
+    .schedule {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .schedule thead {
+      background: #0055aa;
+      color: #fff;
+    }
+
+    .schedule th,
+    .schedule td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    .schedule th {
+      font-size: 1rem;
+    }
+
+    .schedule tbody tr:hover {
+      background: #f9fbff;
+    }
+
+    /* Compact look: shrink text slightly */
+    .schedule td {
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    /* Zebra stripes */
+    .schedule tbody tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    @media (max-width: 900px) {
+      .schedule {
+        font-size: 0.8rem;
+      }
+      .schedule th,
+      .schedule td {
+        padding: 8px;
+      }
+    }
+
+    /* New: standardized sponsor logo sizing */
+        .sponsor-logo {
+            display: block;
+            margin: 0 auto 0.75rem;
+            max-width: 400px;    /* limits width on large screens */
+            max-height: 84px;    /* keeps logos visually similar height */
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    display: flex;        /* Add this */
+    align-items: center;  /* Add this */
+}
+
+.nav-logo {
+    height: 40px;
+    width: auto;
+    max-width: 200px;
+    display: block;       /* Removes inline spacing */
+}
+
+/* Adjust size for different screen sizes */
+@media (max-width: 640px) {
+    .nav-logo {
+        height: 32px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-logo {
+        height: 48px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+<div class="nav-brand">
+    <img src="Logos/Logo_SSDA_2026 1.svg" alt="SSDA Logo" class="nav-logo">
+</div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#program" class="nav-link">Program</a>
+                <a href="#call" class="nav-link">Call for Participants</a>
+                <a href="#location" class="nav-link">Location</a>
+                <a href="#registration" class="nav-link">Registration</a>
+                <a href="#sponsors" class="nav-link">Sponsors</a>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+        <div class="nav-mobile" id="navMobile">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#program" class="mobile-link">Program</a>
+            <a href="#call" class="mobile-link">Call for Participants</a>
+            <a href="#location" class="mobile-link">Location</a>
+            <a href="#registration" class="mobile-link">Registration</a>
+            <a href="#sponsors" class="mobile-link">Sponsors</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>6th IAPR TC10/TC11 Summer School</h1>
+            <h2>Next-Gen Document Understanding: RAG, VLMs, and Structured Knowledge Extraction</h2>
+            <div class="hero-info">
+                <div class="hero-info-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <path d="M16 2v4M8 2v4M3 10h18"/>
+                    </svg>
+                    <span>May 25-29, 2026</span>
+                </div>
+                <div class="hero-info-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>Vall de Núria, Catalonia</span>
+                </div>
+                <div class="hero-info-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                    <span>50 Participants</span>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="scrollToSection('registration')">Apply Now</button>
+        </div>
+        <div class="hero-gradient"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About the Summer School</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Overview</h3>
+                    <p style="color: #374151; margin-bottom: 1rem;">
+                        The rapid development of Document Intelligence (DI) has transformed traditional Document Analysis 
+                        and Recognition (DAR) into a sophisticated, AI-driven field. This summer school provides cutting-edge 
+                        tools for information extraction using Retrieval-Augmented Generation (RAG), Vision-Language 
+                        Models (VLMs), and structured knowledge representation.
+                    </p>
+                    <p style="color: #374151;">
+                        Through a Challenge-Based Learning framework, participants will progress from foundational lectures 
+                        to hands-on practice sessions and culminate in solving real-world industry challenges in collaborative teams.
+                    </p>
+                </div>
+                <div>
+                    <h3>Learning Outcomes</h3>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                        <span style="color: #374151;">Design and implement DocVQA systems with RAG techniques</span>
+                    </div>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                        <span style="color: #374151;">Master multimodal data generation for efficient VLM training</span>
+                    </div>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                        <span style="color: #374151;">Build knowledge graphs from complex document collections</span>
+                    </div>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M19 9l-7 7-7-7"/>
+                        </svg>
+                        <span style="color: #374151;">Apply solutions to low-resource and historical document analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scientific Program -->
+    <section id="program" class="bg-gray">
+        <div class="container">
+            <h2 class="section-title">Scientific Program</h2>
+            
+            <!-- Lectures -->
+            <div style="margin-bottom: 3rem;">
+                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                    </svg>
+                    Lectures
+                </h3>
+                
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h4>Vision-Language Models</h4>
+                    <div class="topic">
+                        <h5>Designing and training VLMs</h5>
+                        <p>Lessons learned from training large-scale vision-language models.</p>
+                    </div>
+                    <div class="topic">
+                        <h5>Document Processing with VLMs</h5>
+                        <p>How to use VLMs to extract structured information from documents.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h4>Graphs as a Document Representation</h4>
+                    <div class="topic">
+                        <h5>Learning on Graphs: GNNs in Document Analysis.</h5>
+                        <p>Use graph neural networks to analyze and interpret document structures.</p>
+                    </div>
+                    <div class="topic">
+                        <h5>Knowledge Graph Embeddings and Knowledge Representation</h5>
+                        <p>Convert documents into structured knowledge graphs for enhanced understanding.</p>
+                    </div>
+                    <div class="topic">
+                        <h5>GraphRAG and Agentic Architectures: From data to insight</h5>
+                        <p>How to augment your models with graph retrieval-augmented generation techniques.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Trends on Document Analysis</h4>
+                    <div class="topic">
+                        <h5>Trends on Truthworthy Document Analysis</h5>
+                        <p>Panel with experts working on trustworthiness and explainability in document analysis.</p>
+                    </div>
+                    <div class="topic">
+                        <h5>Trends on Historical Document Analysis</h5>
+                        <p>Panels with experts discussing the latest research and challenges in historical document analysis.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab Sessions -->
+            <div style="margin-bottom: 3rem;">
+                <h3>Hands-On Lab Sessions</h3>
+                <div class="grid-3">
+                    <div class="bg-blue-light">
+                        <h4>Fine-Tuning Vision Language Models</h4>
+                        <p class="text-sm" style="color: #374151;">Fine-tune a small VLM on documents of a specific domain.</p>
+                    </div>
+                    <div class="bg-blue-light">
+                        <h4>Graph Neural Networks</h4>
+                        <p class="text-sm" style="color: #374151;">Explore the use of graph neural networks for document structure analysis.</p>
+                    </div>
+                    <div class="bg-blue-light">
+                        <h4>Agentic GraphRAG</h4>
+                        <p class="text-sm" style="color: #374151;">Build an agentic system using GraphRAG for advanced document analysis.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Open Lab Challenge -->
+            <div class="bg-gradient-blue">
+                <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1rem;">Document Understanding 2026 Challenge</h3>
+                <p style="font-size: 1.125rem; margin-bottom: 1rem;">
+                    Teams of 5 participants will tackle real-world industry problems.
+                </p>
+                <!-- <ul style="margin-left: 1.5rem;">
+                    <li>Fine-tuning a Low Resource VLM with Synthetic Data Augmentation</li>
+                    <li>Building a Knowledge Graph from a finetuned VLM</li>
+                </ul> -->
+            </div>
+            <div style="height: 2rem;"></div>
+        
+        
+
+            <!-- Schedule -->
+<!--<div style="margin-bottom: 3rem;">
+  
+  <h3>Schedule</h3>
+
+  <div> TBD </div>-->
+
+<!-- <table class="schedule">
+  <thead>
+    <tr>
+      <th>Monday 25th</th>
+      <th>Tuesday 26th</th>
+      <th>Wednesday 27th</th>
+      <th>Thursday 28th</th>
+      <th>Friday 29th</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visit CVC</td>
+      <td>Vision and Language</td>
+      <td>Hiking</td>
+      <td>Knowledge Graph Embeddings and Knowledge Representation</td>
+      <td>Open Lab: Results Presentation</td>
+    </tr>
+    <tr>
+      <td>Transport to Vall de Núria</td>
+      <td>Coffee</td>
+      <td></td>
+      <td>Coffee</td>
+      <td>Closing Ceremony</td>
+    </tr>
+    <tr>
+      <td>Check In</td>
+      <td>Foundation Models</td>
+      <td></td>
+      <td>Agentic: RAG, GraphRAG &amp; Co.</td>
+      <td>Transport to Barcelona</td>
+    </tr>
+    <tr>
+      <td>Lunch</td>
+      <td>Lab Session - VLMs</td>
+      <td>Lunch</td>
+      <td>Lab Session - Agentic GraphRAG</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Break the Ice</td>
+      <td>Student Presentations</td>
+      <td>Trends on Trustworthy Doc Analysis</td>
+      <td>Lunch</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Coffee</td>
+      <td>Coffee</td>
+      <td>Coffee</td>
+      <td>Trends on Historical Doc Analysis</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Intro SOTA</td>
+      <td>Student Poster Session</td>
+      <td>Learning on Graphs: GNNs in Document Analysis</td>
+      <td>Open Lab: Building a Knowledge Graph from a Finetuned VLM</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Social Activities</td>
+      <td>Social Activities</td>
+      <td>Lab Session - GNNs (includes coffee)</td>
+      <td>Social Activities</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Dinner</td>
+      <td>Dinner</td>
+      <td>Open Lab: Finetuning a Low Resource VLM with Synthetic Data</td>
+      <td>Gala Dinner</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table> -->
+        </div>
+    </section>
+
+    <!-- Call for Participants -->
+    <section id="call">
+        <div class="container">
+            <h2 class="section-title">Call for Participants</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Target Audience</h3>
+                    <div class="bg-blue-light mb-4">
+                        <h4>PhD Students (Priority)</h4>
+                        <p class="text-sm" style="color: #374151;">
+                            Students in their 1st-3rd year working on document analysis, information retrieval, or related fields
+                        </p>
+                    </div>
+                    <div class="bg-blue-light mb-4">
+                        <h4>Master's/Post-Master's Students</h4>
+                        <p class="text-sm" style="color: #374151;">
+                            Advanced students preparing for PhD studies in document analysis
+                        </p>
+                    </div>
+                    <div class="bg-blue-light">
+                        <h4>Early-Career Practitioners</h4>
+                        <p class="text-sm" style="color: #374151;">
+                            Industry professionals seeking to deepen expertise in document understanding
+                        </p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Desired Skills</h3>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+                        </svg>
+                        <div>
+                            <strong>Deep Learning Frameworks</strong>
+                            <p class="text-sm" style="color: #6b7280;">Experience with PyTorch or TensorFlow</p>
+                        </div>
+                    </div>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+                        </svg>
+                        <div>
+                            <strong>Research Skills</strong>
+                            <p class="text-sm" style="color: #6b7280;">Analytical approach to research and industry challenges</p>
+                        </div>
+                    </div>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+                        </svg>
+                        <div>
+                            <strong>Team Collaboration</strong>
+                            <p class="text-sm" style="color: #6b7280;">Ability to work effectively in team-based activities</p>
+                        </div>
+                    </div>
+                    <div class="list-icon">
+                        <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                            <circle cx="12" cy="8" r="7"/>
+                            <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+                        </svg>
+                        <div>
+                            <strong>Motivation</strong>
+                            <p class="text-sm" style="color: #6b7280;">Clear interest in document analysis and AI</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-light mt-6">
+                        <h4 style="color: #166534; margin-bottom: 0.5rem;">5 Full Grants Available!</h4>
+                        <p class="text-sm mb-4" style="color: #374151;">
+                            Thanks to IAPR support, we offer 5 full registration fee grants. Apply during registration!
+                        </p>
+                        <p class="text-sm" style="color: #374151;"><strong>Evaluation criteria:</strong></p>
+                        <ul class="text-sm mt-2" style="color: #374151; margin-left: 1.5rem;">
+                            <li>Geographic distance</li>
+                            <li>Financial constraints</li>
+                            <li>Academic background and CV</li>
+                            <li>Research relevance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location -->
+    <section id="location" class="bg-gray">
+        <div class="container">
+            <h2 class="section-title">Location & Venue</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Vall de Núria</h3>
+                    <p style="color: #374151; margin-bottom: 1rem;">
+                        A stunning glacial valley nestled in the heart of the Pyrenees mountains of Catalonia, at approximately 
+                        2,000 meters elevation. Accessible only by scenic cogwheel train, offering a peaceful and inspiring 
+                        environment away from everyday distractions.
+                    </p>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <div class="list-icon">
+                            <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <div>
+                                <h4 style="font-weight: 600; margin: 0;">Location</h4>
+                                <p class="text-sm" style="color: #6b7280;">Eastern Pyrenees, Queralbs, Catalonia, Spain</p>
+                            </div>
+                        </div>
+                        
+                        <div class="list-icon">
+                            <svg class="icon" fill="none" stroke="#2563eb" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <div>
+                                <h4 style="font-weight: 600; margin: 0;">Starting Point</h4>
+                                <p class="text-sm" style="color: #6b7280;">Day 1: Computer Vision Center (CVC), UAB Campus</p>
+                                <p class="text-sm" style="color: #6b7280;">Transport provided to Vall de Núria</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-light">
+                        <h4>Accommodation</h4>
+                        <p class="text-sm" style="color: #6b7280;">
+                            All participants stay at the hotel in the center of the valley. Shared rooms (double/triple) 
+                            with private bathrooms. All meals included: buffet-style breakfast, lunch, and dinner with 
+                            vegetarian/vegan options.
+                        </p>
+                    </div>
+                </div>
+                
+                <div>
+<!-- Location Section -->
+<div class="location-visual" 
+     onclick="window.open('http://maps.google.es/?q=42.400148%202.149970', '_blank')" 
+     style="position: relative; overflow: hidden; border-radius: 1rem; cursor: pointer;">
+
+    <!-- Background iFrame -->
+    <iframe src="./map.html" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                   border: none; filter: brightness(0.98) blur(1px); pointer-events: none; z-index: 0;">
+    </iframe>
+
+    <!-- Foreground content -->
+    <div style="position: relative; z-index: 1; text-align: center; padding: 2rem; background: rgba(255,255,255,0.4); border-radius: 1rem;">
+        <svg width="48" height="48" fill="none" stroke="#2563eb" stroke-width="2" style="margin: 0 auto 1rem;">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <p style="color: #513737; font-weight: 600;">Vall de Núria, Catalonia</p>
+        <p class="text-sm" style="color: #6b7280;">2,000m elevation • Car-free valley</p>
+    </div>
+</div>
+
+                    
+                    <h4 style="font-size: 1.25rem; margin-bottom: 1rem;">Social Activities</h4>
+                    <ul style="color: #374151; margin-left: 1.5rem;">
+                        <li>Guided hiking and nature walks with mountain views</li>
+                        <li>Board games and social activities in communal spaces</li>
+                        <li>Gala dinner on the final evening</li>
+                        <li>Informal networking throughout the week</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration -->
+    <section id="registration">
+        <div class="container" style="max-width: 1024px; text-align: center;">
+            <h2 class="section-title">Registration</h2>
+            
+            <div class="price-box">
+                <div class="price">TBA</div>
+                <p style="font-size: 1.25rem;">Full Registration Fee</p>
+                <p class="text-sm" style="margin-top: 0.5rem; opacity: 0.9;">Includes accommodation, all meals, coffee breaks, transport, and materials</p>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 2rem;">
+                <div class="bg-gray card">
+                    <h3 style="font-size: 1.125rem; margin-bottom: 0.75rem;">What's Included</h3>
+                    <ul style="text-align: left; color: #374151; font-size: 0.875rem;">
+                        <li>✓ 4 nights accommodation at Vall de Núria</li>
+                        <li>✓ All meals (breakfast, lunch, dinner)</li>
+                        <li>✓ Daily coffee breaks</li>
+                        <li>✓ Transport from/to Barcelona</li>
+                        <li>✓ Conference materials and goodie bag</li>
+                        <li>✓ Access to all lectures and lab sessions</li>
+                        <li>✓ Recorded lectures (available post-event)</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-light">
+                    <h3 style="font-size: 1.125rem; margin-bottom: 0.75rem; color: #166534;">Grant Opportunities</h3>
+                    <p class="text-sm mb-4" style="color: #374151;">
+                        5 full registration grants available thanks to IAPR support. Apply during registration!
+                    </p>
+                    <p class="text-sm" style="color: #374151;"><strong>Evaluation criteria:</strong></p>
+                    <ul style="text-align: left; color: #374151; font-size: 0.875rem; margin-top: 0.5rem;">
+                        <li>Geographic distance</li>
+                        <li>Financial constraints</li>
+                        <li>Academic background and CV</li>
+                        <li>Research relevance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-light" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Important Information</h3>
+                <p class="text-sm" style="color: #374151;">
+                    <strong>Capacity:</strong> Limited to 50 participants • <strong>Format:</strong> In-person only • 
+                    <strong>Language:</strong> English
+                </p>
+            </div>
+
+            <button class="btn-primary" style="padding: 1rem 3rem; font-size: 1.125rem;">
+                Apply Now - Registration Opening Soon
+            </button>
+            
+            <p class="text-sm mt-4" style="color: #6b7280;">
+                Questions? Contact: <a href="mailto:amolina@cvc.uab.es" style="color: #2563eb; text-decoration: none;">{amolina, allabres}@cvc.uab.es</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Sponsors -->
+    <section id="sponsors" class="bg-gray">
+        <div class="container">
+            <h2 class="section-title">Sponsors & Partners</h2>
+            
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Platinum Sponsor</h3>
+                <div class="sponsor-card" style="max-width: 28rem; margin: 0 auto;">
+                    <div class="sponsor-icon">★</div>
+                    <p style="color: #6b7280;">Sponsorship opportunity available</p>
+                    <!-- <p class="text-sm mt-2" style="color: #9ca3af;">€5,000 • Industry challenge provider</p> -->
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-bottom: 3rem;">
+                <div style="text-align: center;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Organizer</h3>
+                    <div class="sponsor-card">
+                        <img class="sponsor-logo" src="Logos/CVC-logo-scaled.png" alt="CVC Logo">
+                        <!-- <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">CVC</div> -->
+                        <p class="text-sm" style="color: #6b7280;">Computer Vision Center</p>
+                        <p class="text-xs mt-2" style="color: #9ca3af;">Universitat Autònoma de Barcelona</p>
+                    </div>
+                </div>
+                
+                 <div style="text-align: center;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Supporter</h3>
+                    <div class="sponsor-card">
+                        <img class="sponsor-logo" src="Logos/IAPR.png" alt="IAPR Logo">
+                        <!-- <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">IAPR 10th and 11th Technical Committees</div> -->
+                        <p class="text-sm" style="color: #6b7280;">IAPR 10th and 11th Technical Committees</p>
+                        <p class="text-xs mt-2" style="color: #9ca3af;">IAPR</p>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Co-Organizer</h3>
+                    <div class="sponsor-card">
+                        <img class="sponsor-logo" src="Logos/ellis-logo_horizontal_black_2023-barcelona.png" alt="ELLIS Unit Barcelona Logo">
+                        <!-- <div style="font-weight: bold; font-size: 1.5rem; color: #1f2937; margin-bottom: 0.5rem;">ELLIS Unit Barcelona</div> -->
+                        <p class="text-sm" style="color: #6b7280;">ELLIS Unit Barcelona</p>
+                        <p class="text-xs mt-2" style="color: #9ca3af;">Barcelona</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-light" style="text-align: center;">
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Become a Sponsor</h3>
+                <p style="color: #374151; margin-bottom: 1rem;">
+                    Support the next generation of document understanding researchers and gain visibility in the academic community.
+                </p>
+                <!-- <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem;">
+                    <span>Platinum: €5,000</span>
+                    <span>•</span>
+                    <span>Gold: €2,500</span>
+                </div> -->
+                <button class="btn-primary">Contact Us for Sponsorship</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizing Team -->
+<!-- Organizing Team -->
+<section>
+    <div class="container">
+        <h2 class="section-title">Organizing Team</h2>
+        
+        <div class="grid-3">
+            <div style="text-align: center;">
+                <div class="avatar">
+                    <img src="Team/dimos.jpg" alt="Prof. Dimosthenis Karatzas" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+                </div>
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Prof. Dimosthenis Karatzas</h3>
+                <p class="text-sm" style="color: #6b7280;">Associate Director, CVC</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Head of Vision, Language and Reading Group</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="avatar">
+                    <img src="Team/josep.jpg" alt="Prof. Josep Lladós" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+                </div>
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Prof. Josep Lladós</h3>
+                <p class="text-sm" style="color: #6b7280;">Director, CVC</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Head of Document Analysis Group</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="avatar">
+                    <img src="Team/ernest.png" alt="Dr. Ernest Valveny" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+                </div>
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Dr. Ernest Valveny</h3>
+                <p class="text-sm" style="color: #6b7280;">Researcher, CVC</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">And Coordinator of the AI Degree at UAB</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="avatar">
+                    <img src="Team/adri.png" alt="Adri Molina" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+                </div>
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Adri Molina</h3>
+                <p class="text-sm" style="color: #6b7280;">PhD Student, CVC</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Document Analysis • Retrieval Systems</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="avatar">
+                    <img src="Team/artemis.jpg" alt="Artemis Llabrés" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+                </div>
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Artemis Llabrés</h3>
+                <p class="text-sm" style="color: #6b7280;">PhD Student, CVC</p>
+                <p class="text-xs mt-1" style="color: #9ca3af;">Vision & Language  • Document Understanding</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <div class="avatar-group" aria-hidden="false">
+                    <div class="avatar-sm">
+                        <img src="Team/nuria.jpg" alt="Nuria Martinez">
+                    </div>
+                    <div class="avatar-sm">
+                        <img src="Team/aurora.jpeg" alt="Aurora Garcia">
+                    </div>
+                    <div class="avatar-sm">
+                        <img src="Team/xavi.jpeg" alt="Xavier Galvez">
+                    </div>
+                </div>
+                 <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">CVC Communications Team</h3>
+                 <p class="text-sm" style="color: #6b7280;">Nuria Martinez • Aurora Garcia • Xavier Galvez</p>
+                 <!--<p class="text-xs mt-1" style="color: #9ca3af;">Nuria Martinez • Aurora Garcia • Xavier Galvez</p>--> 
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="grid-3">
+                <div>
+                    <h3>SSDA 2026</h3>
+                    <p style="color: #9ca3af; font-size: 0.875rem;">
+                        6th IAPR TC10/TC11 Summer School on Next-Gen Document Understanding
+                    </p>
+                </div>
+                
+                <div>
+                    <h4>Contact</h4>
+                    <p style="color: #9ca3af; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 0.5rem;">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <path d="M22 6l-10 7L2 6"/>
+                        </svg>
+                        amolina@cvc.uab.es
+                    </p>
+                    <p style="color: #9ca3af; font-size: 0.875rem;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 0.5rem;">
+                            <path d="M12 22s8-4.5 8-10a8 8 0 10-16 0c0 5.5 8 10 8 10z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        CVC, UAB Campus, Barcelona, Spain
+                    </p>
+                </div>
+                
+                <div>
+                    <h4>Quick Links</h4>
+                    <p><a href="#about">About</a></p>
+                    <p><a href="#program">Program</a></p>
+                    <p><a href="#registration">Registration</a></p>
+                    <p><a href="#sponsors">Sponsors</a></p>
+                </div>
+            </div>
+
+            <div class="footer-divider">
+                2026 SSDA Summer School
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile nav toggle
+        const navToggle = document.getElementById("navToggle");
+        const navMobile = document.getElementById("navMobile");
+
+        navToggle.addEventListener("click", () => {
+            navMobile.classList.toggle("active");
+        });
+
+        // Scroll to section
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Close mobile menu on link click
+        document.querySelectorAll(".mobile-link").forEach(link => {
+            link.addEventListener("click", () => {
+                navMobile.classList.remove("active");
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
