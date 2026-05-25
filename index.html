@@ -75,8 +75,7 @@
         }
         .hero::before{
             content:""; position:absolute; inset:0;
-            /* soft warm overlay to harmonize with primary */
-             background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0, 0, 0, 0.3)); 
+            background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0, 0, 0, 0.3)); 
             z-index:0;
             mix-blend-mode: multiply;
         }
@@ -88,15 +87,6 @@
         .hero-info{ display:flex; flex-wrap:wrap; justify-content:center; gap:1.25rem; margin-bottom:1.25rem; font-size:1rem; color: #fff; opacity:0.95; }
         .hero-info-item{ display:flex; align-items:center; gap:.5rem; color: var(--bg-muted); }
         .hero-info-item svg{ stroke: var(--bg-muted); opacity:0.95; }
-
-        /* .hero-content { 
-             background: rgba(255, 255, 255, 0.04); 
-             backdrop-filter: blur(2px);              
-             display: inline-block;                 
-            padding: 0.25rem 0.5rem;               
-            border-radius: 6px;                    
-        }  */
-
 
         .btn-primary{
             background: var(--primary); color: #fff; padding:.75rem 2rem; border-radius:.6rem;
@@ -133,9 +123,8 @@
         .topic{ border-left:4px solid var(--primary); padding-left:1rem; margin-bottom:1rem; }
         .topic p{ color:var(--muted-2); font-size:.95rem; margin-top:.25rem }
 
-        .bg-gray{ background: #fbf7f6; } /* very subtle warm surface */
+        .bg-gray{ background: #fbf7f6; }
 
-        /* Warm light surface (replaces previous 'blue light') */
         .bg-blue-light{
             background: var(--bg-soft); border:2px solid var(--soft-border); border-radius:.6rem; padding:1.25rem;
         }
@@ -384,9 +373,11 @@
                 </div>
 
             <br>
-            <!-- <button class="btn-primary" style="padding: 1rem 3rem; font-size: 1.125rem; position: center;" onclick="window.open('https://cvc-dag.github.io/ssda/schedule.html')">
-Click here for the complete program and lectures!
-            </button> -->
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="https://github.com/CVC-DAG/ssda/blob/main/updated_program.pdf" target="_blank" class="btn-primary" style="display: inline-block; text-decoration: none; padding: 1rem 3rem; font-size: 1.125rem;">
+                    View the Complete Program
+                </a>
+            </div>
                     </div>
 
             <!-- Lab Sessions -->
@@ -556,7 +547,6 @@ Click here for the complete program and lectures!
                 </div>
                 
                 <div>
-<!-- Location Section -->
 <div class="location-visual" 
      onclick="window.open('http://maps.google.es/?q=42.400148%202.149970', '_blank')" 
      style="position: relative; overflow: hidden; border-radius: 1rem; cursor: pointer;">
@@ -608,9 +598,9 @@ Click here for the complete program and lectures!
                     <strong>Language:</strong> English
                 </p>
                 
-            <button class="btn-primary" style="padding: 1rem 3rem; font-size: 1.125rem;" onclick="window.open('https://forms.gle/DScBBjp7jBCXBAZL6')">
+            <!-- <button class="btn-primary" style="padding: 1rem 3rem; font-size: 1.125rem;" onclick="window.open('https://forms.gle/DScBBjp7jBCXBAZL6')">
                 Apply Now! - Registration Form
-            </button>
+            </button> -->
             </div>
 
             <br>
@@ -657,14 +647,6 @@ Click here for the complete program and lectures!
     <section id="sponsors" class="bg-gray">
         <div class="container">
             <h2 class="section-title">Sponsors & Partners</h2>
-            
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Platinum Sponsor</h3>
-                <div class="sponsor-card" style="max-width: 28rem; margin: 0 auto;">
-                    <div class="sponsor-icon">★</div>
-                    <p style="color: var(--muted);">Sponsorship opportunity available</p>
-                </div>
-            </div>
 
             <div class="grid-2" style="margin-bottom: 3rem;">
                 <div style="text-align: center;">
@@ -676,17 +658,18 @@ Click here for the complete program and lectures!
                     </div>
                 </div>
                 
-                 <div style="text-align: center;">
+                <div style="text-align: center;">
                     <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Supporter</h3>
                     <div class="sponsor-card">
-                        <img class="sponsor-logo" src="https://iapr-tc10.univ-lr.fr/wp-content/uploads/2019/03/new_TC10_version3_.png" alt="IAPR Logo">
+                        <img class="sponsor-logo" src="https://tc11.cvc.uab.es/css/images/Tc-11_Logo.png" alt="IAPR TC11 Logo">
+                        <img class="sponsor-logo" src="https://iapr-tc10.univ-lr.fr/wp-content/uploads/2019/03/new_TC10_version3_.png" alt="IAPR TC10 Logo">
                         <p class="text-sm" style="color: var(--muted);">IAPR 10th and 11th Technical Committees</p>
                         <p class="text-xs mt-2" style="color: #c9b7b4;">IAPR</p>
                     </div>
                 </div>
-                </div>
+            </div>
                 
-                <div class="grid-2" style="margin-bottom: 3rem;">
+            <div class="grid-2" style="margin-bottom: 3rem;">
                 <div style="text-align: center;">
                     <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Co-Organizer</h3>
                     <div class="sponsor-card">
@@ -853,6 +836,3 @@ Click here for the complete program and lectures!
     </script>
 </body>
 </html>
-
-
-
